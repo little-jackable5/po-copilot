@@ -117,36 +117,45 @@
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Fermer">×</button><div class="modal-symbol">i</div><h2 id="modalTitle">À propos de PO Copilot</h2><p id="modalText">Cette version est un prototype local. Elle ne se connecte pas à un modèle d'IA, à Jira ni à un service de paiement.</p><button class="btn-primary" id="modalOk">Compris</button></div></div>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // 1. Redirection propre des boutons/liens d'offres vers la page/vue des offres
-  const offerLinks = document.querySelectorAll('[href="#pricing"], [data-view="pricing"], .offer-link, .btn-upgrade');
-  offerLinks.forEach(link => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (typeof setView === "function") {
-        setView("pricing");
-      } else if (typeof renderFilteredView === "function") {
-        renderFilteredView("pricing");
-      }
-    });
-  });
-});
-</script>
+
+
+
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Cibler l'encart d'offre en bas du menu latéral
-  const sidebarUpgradeBtn = document.querySelector('.sidebar-footer button, .workspace-footer button, [data-view="pricing"]');
-  if (sidebarUpgradeBtn) {
-    sidebarUpgradeBtn.textContent = "Voir les offres";
-    sidebarUpgradeBtn.onclick = (e) => {
-      e.preventDefault();
-      if (typeof setView === "function") {
-        setView("pricing");
-      }
-    };
+function setView(viewName) {
+  // 1. Masquer toutes les vues/sections
+  const views = document.querySelectorAll('.view, section[id^="view-"]');
+  views.forEach(v => {
+    v.style.display = 'none';
+    v.classList.remove('active');
+  });
+
+  // 2. Afficher la vue cible
+  const targetView = document.getElementById('view-' + viewName) || document.querySelector('.' + viewName);
+  if (targetView) {
+    targetView.style.display = 'block';
+    targetView.classList.add('active');
   }
+
+  // 3. Mettre à jour l'état actif dans le menu latéral si besoin
+  const navItems = document.querySelectorAll('aside a, .sidebar-nav a');
+  navItems.forEach(item => {
+    item.classList.remove('active');
+    if (item.getAttribute('data-view') === viewName || item.href.includes(viewName)) {
+      item.classList.add('active');
+    }
+  });
+}
+
+// Intercepter tous les éléments avec data-view au chargement
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('[data-view]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const view = el.getAttribute('data-view');
+      if (view) setView(view);
+    });
+  });
 });
 </script>
 </body></html>
