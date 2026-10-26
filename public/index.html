@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PO Copilot — Prototype v0.3</title><style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+:root{--navy:#17233d;--navy2:#22314f;--ink:#172033;--muted:#718096;--line:#e7eaf1;--bg:#f6f7fb;--white:#fff;--purple:#6558d9;--purple2:#f0efff;--blue:#3576d3;--green:#218568;--red:#c94f5c;--amber:#b7791f;--shadow:0 8px 28px rgba(25,37,67,.045)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',Arial,sans-serif;font-size:14px;line-height:1.5}button,input,textarea,select{font:inherit}button{cursor:pointer}.app-shell{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:250px;background:var(--navy);color:#e9edf7;padding:25px 15px 15px;display:flex;flex-direction:column;z-index:10}.brand{display:flex;align-items:center;gap:11px;padding:0 9px 32px}.brand-mark{width:36px;height:36px;display:grid;place-items:center;background:linear-gradient(145deg,#8278f5,#5a4bc4);border-radius:11px;color:white;font:800 20px Manrope;box-shadow:0 5px 15px #0002}.brand strong{font:800 16px Manrope;letter-spacing:-.4px;display:block}.brand small{font-size:9px;letter-spacing:1.5px;color:#9ca8c3;display:block;margin-top:2px}.workspace-label{font-size:9px;font-weight:700;letter-spacing:1.35px;color:#8391ad;padding:0 12px 10px}.nav-menu{display:grid;gap:4px}.nav-item{border:0;background:transparent;color:#b9c3d8;border-radius:8px;padding:11px 12px;text-align:left;display:flex;align-items:center;gap:12px;font-size:13px;transition:.15s}.nav-item:hover{background:#ffffff0d;color:white}.nav-item.active{background:#6558d92b;color:white;font-weight:600;box-shadow:inset 3px 0 #8175f0}.nav-icon{font-size:17px;width:19px;text-align:center;color:#a9b4ce}.nav-item.active .nav-icon{color:#b9b2ff}.sidebar-bottom{margin-top:auto}.plan-card{border:1px solid #ffffff17;background:#ffffff08;border-radius:10px;padding:13px;margin-bottom:15px}.plan-row{display:flex;align-items:center;gap:7px;font-size:11px}.plan-dot{width:7px;height:7px;background:#9c92ff;border-radius:50%}.plan-card p{font-size:11px;line-height:1.5;color:#aeb9d0;margin:8px 0 12px}.btn-plan{background:#ffffff12;border:1px solid #ffffff1c;border-radius:6px;color:#fff;width:100%;padding:8px 10px;text-align:left;font-size:11px}.btn-plan span{float:right}.profile{border-top:1px solid #ffffff16;padding:15px 4px 2px;display:flex;align-items:center;gap:9px}.avatar{width:31px;height:31px;border-radius:9px;background:#dcd9ff;color:#5144b5;display:grid;place-items:center;font-size:10px;font-weight:700}.profile strong{display:block;font-size:11px}.profile small{display:block;font-size:10px;color:#9ca8c3;margin-top:2px}.profile-more{margin-left:auto;color:#8290ac}.main-area{margin-left:250px;min-height:100vh;display:flex;flex-direction:column}.topbar{height:67px;background:#ffffffd9;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 38px;position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}.breadcrumb{font-size:12px;color:#8b95a8}.breadcrumb span{margin:0 9px;color:#c2c8d4}.breadcrumb strong{font-weight:600;color:#30394d}.topbar-right{display:flex;align-items:center;gap:15px}.status-pill{border:1px solid #dfe8e3;background:#f5fbf7;color:#34755b;border-radius:30px;padding:6px 10px;font-size:10px}.status-pill span{display:inline-block;width:6px;height:6px;border-radius:50%;background:#3ca57b;margin-right:6px}.help-button{width:27px;height:27px;border:1px solid #e1e5ed;border-radius:50%;background:white;color:#69758c;font-weight:700}.mobile-menu{display:none}.view{display:none;padding:35px 38px 25px;max-width:1500px;width:100%;margin:0 auto;flex:1}.view.active{display:block}.page-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:25px}.page-heading h1{font:800 28px/1.25 Manrope,Arial,sans-serif;letter-spacing:-1.1px;margin:6px 0 7px;color:#1a2439}.page-heading p{color:var(--muted);margin:0;font-size:13px}.eyebrow{font-size:9px;letter-spacing:1.55px;font-weight:700;color:#8175d8}.btn-primary,.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:7px;padding:10px 15px;font-size:12px;font-weight:700;transition:transform .12s,background .12s;border:1px solid transparent;white-space:nowrap}.btn-primary{background:var(--purple);color:#fff;box-shadow:0 3px 8px #6558d922}.btn-primary:hover{background:#5447c8;transform:translateY(-1px)}.btn-secondary{background:#fff;color:#4b566c;border-color:#dfe3ec}.btn-secondary:hover{background:#f8f8fc;border-color:#cbd1df}.demo-notice{display:flex;align-items:flex-start;gap:10px;background:#f1f2ff;border:1px solid #e1e2ff;border-radius:8px;padding:11px 14px;color:#626b8b;font-size:11px;margin-bottom:21px}.demo-notice strong{color:#4f48a5}.notice-icon{flex:0 0 17px;width:17px;height:17px;border-radius:50%;background:#dcdcff;color:#5d53be;text-align:center;font-weight:700;line-height:17px}.stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:32px}.stat-card{background:white;border:1px solid var(--line);border-radius:10px;padding:17px 18px;box-shadow:var(--shadow)}.stat-top{display:flex;justify-content:space-between;align-items:center;color:#69758b;font-size:11px}.stat-icon{width:31px;height:31px;display:grid;place-items:center;border-radius:8px;font-size:16px}.purple{background:#f0efff;color:#6859d6}.blue{background:#eaf3ff;color:#3478d0}.green{background:#e7f7f0;color:#218568}.amber{background:#fff4df;color:#b7791f}.red{background:#fff0f1;color:#c94f5c}.stat-value{font:800 27px Manrope;letter-spacing:-.7px;margin:12px 0 4px}.stat-value small{font:500 12px 'DM Sans';color:#7b8699;letter-spacing:0}.stat-foot{font-size:10px;color:#9aa3b2}.section-heading{display:flex;align-items:center;justify-content:space-between;margin:0 0 14px}.section-heading h2{font:700 16px Manrope;margin:0 0 4px;letter-spacing:-.35px}.section-heading p{font-size:11px;color:var(--muted);margin:0}.text-button{border:0;background:transparent;color:var(--purple);font-weight:700;font-size:11px;padding:8px}.text-button span{margin-left:5px}.quick-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}.quick-card{text-align:left;position:relative;background:white;border:1px solid var(--line);border-radius:10px;padding:16px;min-height:143px;display:flex;flex-direction:column;align-items:flex-start;box-shadow:var(--shadow);transition:.16s}.quick-card:hover,.template-card:hover{border-color:#c9c4fa;transform:translateY(-2px);box-shadow:0 10px 25px #26355a0b}.quick-icon,.template-symbol{width:32px;height:32px;display:grid;place-items:center;border-radius:8px;font-size:17px;margin-bottom:14px}.quick-title{font-weight:700;font-size:12px;margin-bottom:5px}.quick-desc{font-size:10px;color:#7a8598;line-height:1.5;padding-right:8px}.quick-arrow{position:absolute;right:14px;top:14px;color:#a1aabd;font-size:13px}.recent-heading{margin-top:31px}.activity-card{border:1px solid var(--line);border-radius:10px;background:white;box-shadow:var(--shadow);overflow:hidden}.empty-state{display:flex;flex-direction:column;align-items:center;text-align:center;padding:44px 25px;color:#79859a}.empty-state strong{font-size:13px;color:#39445a;margin:12px 0 5px}.empty-state p{font-size:11px;max-width:330px;margin:0 0 17px;line-height:1.6}.empty-state.compact{padding:28px 20px}.empty-symbol{width:38px;height:38px;border-radius:12px;background:#f1f0ff;color:#776bd9;display:grid;place-items:center;font-size:19px}.prototype-tag{background:#f1f0ff;color:#6659cc;border-radius:5px;padding:6px 9px;font-size:10px;font-weight:600}.generator-layout{display:grid;grid-template-columns:minmax(0,1.03fr) minmax(0,.97fr);gap:18px;align-items:start}.form-card,.result-card,.settings-card{background:white;border:1px solid var(--line);border-radius:11px;box-shadow:var(--shadow);min-width:0}.form-card{padding:22px}.card-heading,.result-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px}.step-label{font-size:9px;font-weight:700;letter-spacing:1.2px;color:#887cda}.card-heading h2,.result-header h2{font:700 16px Manrope;letter-spacing:-.4px;margin:4px 0 0}.required-label{font-size:10px;color:#98a1b0}.form-card label{display:block;font-size:11px;font-weight:700;color:#384359;margin:15px 0 7px}.form-card label>span{color:#d25563}.form-card label small{font-weight:400;color:#9aa3b2;margin-left:5px;font-size:10px}.form-card input,.form-card textarea,.form-card select,.settings-card select{width:100%;border:1px solid #dfe3ec;background:#fff;border-radius:7px;padding:10px 11px;color:#30394d;font-size:11px;outline:none;transition:border .15s,box-shadow .15s}.form-card textarea{resize:vertical;min-height:60px;line-height:1.6}.form-card input:focus,.form-card textarea:focus,.form-card select:focus,.settings-card select:focus{border-color:#9e96ef;box-shadow:0 0 0 3px #8276e71a}.form-card input::placeholder,.form-card textarea::placeholder{color:#a5adba}.field-hint{font-size:10px;color:#9aa3b2;margin-top:6px}.form-two{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-two>div{min-width:0}.settings-row{margin-top:2px}.form-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:21px;padding-top:17px;border-top:1px solid #edf0f5}.form-error{display:none;color:#b53c4b;background:#fff1f2;border:1px solid #ffd8dc;border-radius:6px;padding:9px 11px;margin-top:12px;font-size:11px}.result-card{padding:22px;position:sticky;top:88px}.result-status{font-size:10px;color:#8b95a7;background:#f4f5f8;border-radius:5px;padding:5px 8px}.result-empty{padding:42px 12px 32px}.empty-illustration{width:54px;height:54px;border:1px solid #e8e5ff;background:linear-gradient(145deg,#f8f7ff,#eeecff);border-radius:16px;display:grid;place-items:center;color:#7669d9;font-size:25px;box-shadow:0 6px 18px #6558d912}.empty-checks{display:grid;gap:7px;margin-top:6px;text-align:left;font-size:10px;color:#8490a4}.empty-checks span:before{content:'✓';color:#2c9a75;margin-right:8px}.hidden{display:none!important}.result-content{border-top:1px solid #edf0f5;padding-top:13px}.result-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.kind-chip{font-size:10px;font-weight:700;color:#5b50c2;background:#f0efff;padding:5px 8px;border-radius:5px}.result-actions{display:flex;gap:5px}.icon-action{border:1px solid #e1e5ed;background:white;color:#68748b;border-radius:6px;width:29px;height:29px;font-size:15px}.icon-action:hover{background:#f4f3ff;color:var(--purple)}#resultText{width:100%;min-height:370px;resize:vertical;border:1px solid #e4e7ef;border-radius:7px;padding:14px;font:11px/1.8 'DM Sans',sans-serif;color:#354056;outline:none;white-space:pre-wrap}#resultText:focus{border-color:#a9a2f1;box-shadow:0 0 0 3px #8276e71a}.result-bottom-actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.result-bottom-actions .btn-primary{margin-left:auto}.result-footnote{font-size:10px;color:#9aa3b2;margin-top:12px}.info-panel{display:flex;gap:16px;align-items:flex-start;background:white;border:1px solid var(--line);border-radius:10px;padding:22px;box-shadow:var(--shadow);margin-bottom:18px}.panel-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:10px;font-size:19px;flex:0 0 auto}.info-panel h3{margin:0 0 6px;font:700 14px Manrope}.info-panel p{margin:0 0 15px;color:#7a8598;font-size:12px;max-width:650px}.saved-list,.history-list{display:grid;gap:10px}.saved-item,.history-item{display:flex;align-items:center;gap:12px;background:white;border:1px solid var(--line);border-radius:9px;padding:14px 16px}.saved-item-main,.history-main{min-width:0;flex:1}.saved-item strong,.history-item strong{display:block;font-size:12px;overflow-wrap:anywhere}.saved-item small,.history-item small{display:block;color:#8a95a7;font-size:10px;margin-top:4px}.saved-item button,.history-item button{font-size:10px}.list-empty{background:#fff;border:1px dashed #dce1eb;border-radius:9px;padding:25px;text-align:center;color:#8a95a7;font-size:12px}.template-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.template-card{text-align:left;position:relative;display:flex;flex-direction:column;align-items:flex-start;background:white;border:1px solid var(--line);border-radius:10px;padding:20px;min-height:175px;transition:.16s}.template-card strong{font-size:13px;color:#29344a}.template-card p{font-size:11px;color:#7c879a;line-height:1.6;margin:8px 0 17px}.template-link{color:var(--purple);font-size:10px;font-weight:700;margin-top:auto}.template-symbol{margin-bottom:14px}.danger-button{color:#b54753;border-color:#f0d3d7}.history-item .history-date{font-size:10px;color:#8c96a8;min-width:95px}.history-item .history-type{font-size:9px;color:#6559cc;background:#f0efff;border-radius:5px;padding:5px 7px;white-space:nowrap}.pricing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}.price-card{background:white;border:1px solid var(--line);border-radius:12px;padding:23px;position:relative;box-shadow:var(--shadow)}.price-card.featured{border:1px solid #9d94f0;box-shadow:0 10px 30px #6558d913}.popular-tag{position:absolute;right:14px;top:14px;font-size:8px;font-weight:700;color:#5b50c2;background:#f0efff;padding:5px 7px;border-radius:5px}.price-label{font-size:9px;letter-spacing:1px;font-weight:700;color:#858fa2}.price-card h2{font:800 21px Manrope;margin:11px 0 8px}.price{margin:0 0 10px}.price strong{font:800 30px Manrope;letter-spacing:-1px}.price span{font-size:11px;color:#7f899b;margin-left:4px}.price-card>p:not(.price){color:#7d8799;font-size:11px;min-height:34px}.price-card ul{padding:15px 0 20px;margin:15px 0;border-top:1px solid #eef0f5;list-style:none;display:grid;gap:10px;font-size:11px;color:#536075}.price-card li:before{content:'✓';color:#2a9872;font-weight:700;margin-right:9px}.full-width{width:100%}.pricing-note{font-size:10px;color:#929bad;text-align:center;margin-top:20px}.settings-card{padding:0 22px}.setting-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:19px 0;border-bottom:1px solid #edf0f5}.setting-row:last-child{border-bottom:0}.setting-row strong{font-size:12px}.setting-row p{font-size:11px;color:#808b9e;margin:5px 0 0;max-width:600px}.setting-row select{max-width:150px}.settings-badge{background:#edf8f2;color:#267d5e;font-size:10px;font-weight:700;padding:5px 9px;border-radius:5px}.app-footer{display:flex;justify-content:space-between;gap:15px;padding:20px 38px 25px;color:#9aa3b2;font-size:10px}.footer-sep{margin:0 5px;color:#c4c9d4}.toast{position:fixed;bottom:24px;right:24px;z-index:30;background:#17233d;color:white;border-radius:8px;padding:12px 16px;font-size:12px;box-shadow:0 8px 25px #17233d35;opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s;max-width:calc(100vw - 40px)}.toast.show{opacity:1;transform:translateY(0)}.modal{position:fixed;inset:0;background:#17233d70;display:grid;place-items:center;padding:20px;z-index:40}.modal-card{position:relative;width:min(420px,100%);background:white;border-radius:14px;padding:28px;text-align:center;box-shadow:0 20px 80px #17233d3a}.modal-close{position:absolute;right:13px;top:10px;border:0;background:transparent;color:#7e8797;font-size:24px}.modal-symbol{width:38px;height:38px;margin:0 auto 13px;display:grid;place-items:center;border-radius:50%;background:#efeeff;color:#6558d9;font-weight:800}.modal-card h2{font:800 18px Manrope;margin:0 0 10px}.modal-card p{font-size:12px;color:#7b8597;line-height:1.7;margin:0 0 20px}
+@media(max-width:1150px){.view{padding:28px 25px}.topbar{padding:0 25px}.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.generator-layout{grid-template-columns:1fr}.result-card{position:static}.template-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pricing-grid{grid-template-columns:1fr 1fr}.price-card:last-child{grid-column:1/-1}.app-footer{padding-left:25px;padding-right:25px}}
+@media(max-width:760px){.sidebar{transform:translateX(-100%);transition:transform .2s;box-shadow:10px 0 30px #0002}.sidebar.open{transform:translateX(0)}.main-area{margin-left:0}.topbar{height:58px;padding:0 17px}.mobile-menu{display:block;border:1px solid var(--line);background:white;border-radius:6px;padding:5px 8px;color:#4a566c}.breadcrumb{margin-right:auto;margin-left:10px;font-size:10px}.topbar-right{gap:8px}.status-pill{font-size:0;padding:7px}.status-pill span{margin:0}.view{padding:25px 16px 20px}.page-heading{align-items:flex-start;flex-direction:column;margin-bottom:20px}.page-heading h1{font-size:24px}.dashboard-heading .btn-primary{align-self:stretch}.stats-grid{gap:9px}.stat-card{padding:13px}.stat-top{font-size:10px}.stat-value{font-size:24px}.quick-grid{gap:9px}.quick-card{padding:13px;min-height:150px}.quick-title{font-size:11px}.quick-desc{font-size:10px}.section-heading{align-items:flex-start}.section-heading h2{font-size:14px}.section-heading p{max-width:220px}.text-button{font-size:10px;padding:5px 0}.form-card,.result-card{padding:16px}.form-two{grid-template-columns:1fr}.form-card label{margin-top:13px}.result-bottom-actions .btn-primary{margin-left:0}.result-bottom-actions>*{flex:1}.template-grid,.pricing-grid{grid-template-columns:1fr}.price-card:last-child{grid-column:auto}.setting-row{align-items:flex-start;flex-direction:column;gap:10px}.app-footer{padding:18px 16px;flex-direction:column;gap:5px}.history-item{flex-wrap:wrap}.history-item .history-date{min-width:0}.demo-notice{font-size:10px}.result-empty{padding:30px 5px}.form-actions .btn-primary{flex:1}.profile{margin-top:10px}}
+</style></head><body><div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><div class="brand-mark">P</div><div><strong>PO Copilot</strong><small>PRODUCT WORKSPACE</small></div></div>
+    <div class="workspace-label">ESPACE DE TRAVAIL</div>
+    <nav class="nav-menu" aria-label="Navigation principale">
+      <button class="nav-item active" data-view="dashboard"><span class="nav-icon">▦</span>Tableau de bord</button>
+      <button class="nav-item" data-view="generator"><span class="nav-icon">✦</span>Générateur de tickets</button>
+      <button class="nav-item" data-view="stories"><span class="nav-icon">▤</span>User stories</button>
+      <button class="nav-item" data-view="bugs"><span class="nav-icon">⚑</span>Bugs</button>
+      <button class="nav-item" data-view="acceptance"><span class="nav-icon">☷</span>Critères d'acceptation</button>
+      <button class="nav-item" data-view="tests"><span class="nav-icon">✓</span>Cas de test</button>
+      <button class="nav-item" data-view="templates"><span class="nav-icon">▧</span>Mes modèles</button>
+      <button class="nav-item" data-view="history"><span class="nav-icon">◷</span>Historique</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="plan-card"><div class="plan-row"><span class="plan-dot"></span><strong>Offre Découverte</strong></div><p>Explorez les outils et préparez vos livrables.</p><button class="btn-plan" data-view="pricing">Découvrir les offres <span>→</span></button></div>
+      <div class="profile"><div class="avatar">PO</div><div><strong>Product Owner</strong><small>Compte de démonstration</small></div><span class="profile-more">•••</span></div>
+    </div>
+  </aside>
+
+  <main class="main-area">
+    <header class="topbar">
+      <button class="mobile-menu" id="mobileMenu" aria-label="Ouvrir le menu">☰</button>
+      <div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumbCurrent">Tableau de bord</strong></div>
+      <div class="topbar-right"><span class="status-pill"><span></span> Prototype local</span><button class="help-button" title="À propos de PO Copilot" id="aboutButton">?</button></div>
+    </header>
+
+    <section class="view active" id="view-dashboard">
+      <div class="page-heading dashboard-heading"><div><div class="eyebrow">LUNDI, PRODUCTIVITÉ EN ACTION</div><h1>Bonjour, prêt à gagner du temps ?</h1><p>Transformez vos demandes en livrables prêts pour votre équipe.</p></div><button class="btn-primary" data-view="generator"><span>＋</span> Nouveau ticket</button></div>
+      <div class="demo-notice"><span class="notice-icon">i</span><span>Vous utilisez une <strong>version de démonstration</strong>. Les statistiques initiales sont fictives. Les tickets sont générés par IA via le serveur local et conservés dans ce navigateur.</span></div>
+      <div class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>Tickets générés</span><span class="stat-icon purple">▤</span></div><div class="stat-value" id="statTickets">0</div><div class="stat-foot">Depuis ce navigateur</div></article>
+        <article class="stat-card"><div class="stat-top"><span>User stories créées</span><span class="stat-icon blue">◈</span></div><div class="stat-value" id="statStories">0</div><div class="stat-foot">Enregistrées localement</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Cas de test préparés</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="statTests">0</div><div class="stat-foot">Propositions générées</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Temps estimé économisé</span><span class="stat-icon amber">◷</span></div><div class="stat-value" id="statTime">0 <small>min</small></div><div class="stat-foot">Estimation indicative</div></article>
+      </div>
+      <div class="section-heading"><div><h2>Démarrer rapidement</h2><p>Choisissez le livrable dont vous avez besoin.</p></div><button class="text-button" data-view="generator">Ouvrir le générateur <span>→</span></button></div>
+      <div class="quick-grid">
+        <button class="quick-card" data-kind="User story"><span class="quick-icon purple">◈</span><span class="quick-title">Créer une user story</span><span class="quick-desc">Structurez le besoin et définissez sa valeur.</span><span class="quick-arrow">↗</span></button>
+        <button class="quick-card" data-kind="Bug"><span class="quick-icon red">⚑</span><span class="quick-title">Rédiger un bug</span><span class="quick-desc">Formalisez l'anomalie et le comportement attendu.</span><span class="quick-arrow">↗</span></button>
+        <button class="quick-card" data-kind="Critères d'acceptation"><span class="quick-icon blue">☷</span><span class="quick-title">Définir les critères</span><span class="quick-desc">Rendez les conditions de validation vérifiables.</span><span class="quick-arrow">↗</span></button>
+        <button class="quick-card" data-kind="Cas de test"><span class="quick-icon green">✓</span><span class="quick-title">Préparer une recette</span><span class="quick-desc">Organisez les étapes et résultats attendus.</span><span class="quick-arrow">↗</span></button>
+      </div>
+      <div class="section-heading recent-heading"><div><h2>Activité récente</h2><p>Vos derniers livrables créés dans ce navigateur.</p></div><button class="text-button" data-view="history">Voir l'historique <span>→</span></button></div>
+      <div class="activity-card" id="dashboardActivity"><div class="empty-state compact"><div class="empty-symbol">◷</div><strong>Aucune activité pour le moment</strong><p>Votre premier livrable apparaîtra ici.</p><button class="btn-secondary" data-view="generator">Créer mon premier ticket</button></div></div>
+    </section>
+
+    <section class="view" id="view-generator">
+      <div class="page-heading"><div><div class="eyebrow">VOTRE ASSISTANT DE RÉDACTION</div><h1>Générateur de tickets</h1><p>Décrivez votre besoin. PO Copilot le structure pour votre équipe.</p></div><span class="prototype-tag">Génération par IA</span></div>
+      <div class="generator-layout">
+        <div class="form-card">
+          <div class="card-heading"><div><span class="step-label">ÉTAPE 1</span><h2>Décrivez votre besoin</h2></div><span class="required-label">* Obligatoire</span></div>
+          <form id="ticketForm">
+            <label for="kind">Type de livrable <span>*</span></label>
+            <select id="kind" required>
+              <option>User story</option><option>Bug</option><option>Demande d'évolution</option><option>Tâche technique</option><option>Cas de test</option><option>Critères d'acceptation</option>
+            </select>
+            <label for="ticketTitle">Titre du ticket <small>Facultatif</small></label>
+            <input id="ticketTitle" type="text" placeholder="Ex. Ajouter une scrollbar dans la timeline">
+            <label for="description">Description du besoin <span>*</span></label>
+            <textarea id="description" required minlength="12" rows="6" placeholder="Décris ton besoin, colle un email client ou explique le problème rencontré..."></textarea>
+            <div class="field-hint">Conseil : indiquez ce qui se passe aujourd'hui et ce que vous souhaitez obtenir.</div>
+            <div class="form-two">
+              <div><label for="context">Contexte fonctionnel <small>Facultatif</small></label><textarea id="context" rows="3" placeholder="Écran, utilisateur, situation…"></textarea></div>
+              <div><label for="expected">Résultat attendu <small>Facultatif</small></label><textarea id="expected" rows="3" placeholder="Comportement souhaité…"></textarea></div>
+            </div>
+            <label for="constraints">Contraintes ou règles métier <small>Facultatif</small></label>
+            <textarea id="constraints" rows="2" placeholder="Règles connues, droits, limites…"></textarea>
+            <div class="form-two settings-row">
+              <div><label for="detail">Niveau de détail</label><select id="detail"><option value="Synthétique">Synthétique</option><option value="Standard" selected>Standard</option><option value="Détaillé">Détaillé</option></select></div>
+              <div><label for="format">Format de sortie</label><select id="format"><option value="Jira">Format Jira</option><option value="Texte simple">Texte simple</option></select></div>
+            </div>
+            <div class="form-error" id="formError" role="alert"></div>
+            <div class="form-actions"><button type="button" class="btn-secondary" id="clearForm">Effacer</button><button type="submit" class="btn-primary" id="generateButton"><span>✦</span> Générer mon ticket</button></div>
+          </form>
+        </div>
+        <div class="result-card">
+          <div class="result-header"><div><span class="step-label">ÉTAPE 2</span><h2>Votre livrable</h2></div><span class="result-status" id="resultStatus">En attente</span></div>
+          <div id="resultEmpty" class="empty-state result-empty"><div class="empty-illustration"><span>✦</span></div><strong>Votre ticket apparaîtra ici</strong><p>Renseignez le besoin à gauche, puis lancez la génération pour obtenir une structure claire et prête à relire.</p><div class="empty-checks"><span>✓ Structure adaptée au livrable</span><span>✓ Points manquants signalés</span><span>✓ Résultat modifiable et copiable</span></div></div>
+          <div id="resultContent" class="result-content hidden">
+            <div class="result-toolbar"><span id="resultKind" class="kind-chip">User story</span><div class="result-actions"><button class="icon-action" id="copyResult" title="Copier" aria-label="Copier">▣</button><button class="icon-action" id="downloadResult" title="Télécharger en TXT" aria-label="Télécharger">↓</button></div></div>
+            <textarea id="resultText" aria-label="Contenu du livrable" spellcheck="true"></textarea>
+            <div class="result-bottom-actions"><button class="btn-secondary" id="editResult">Modifier le texte</button><button class="btn-secondary" id="regenerate">Régénérer</button><button class="btn-primary" id="makeTests">Créer les cas de test <span>→</span></button></div>
+            <div class="result-footnote">Relisez et validez le contenu avant de le transmettre à votre équipe.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-stories"><div class="page-heading"><div><div class="eyebrow">BACKLOG PRODUIT</div><h1>User stories</h1><p>Transformez les besoins utilisateurs en stories structurées.</p></div><button class="btn-primary" data-kind="User story">＋ Créer une story</button></div><div class="info-panel"><span class="panel-icon purple">◈</span><div><h3>Une bonne user story doit exprimer une valeur</h3><p>Utilisez le format « En tant que… Je veux… Afin de… ». Si le rôle, le besoin ou la valeur ne sont pas précisés, PO Copilot les signalera plutôt que de les inventer.</p><button class="btn-secondary" data-kind="User story">Ouvrir le générateur</button></div></div><div id="storiesList" class="saved-list"></div></section>
+    <section class="view" id="view-bugs"><div class="page-heading"><div><div class="eyebrow">QUALITÉ PRODUIT</div><h1>Bugs</h1><p>Documentez les anomalies sans inventer les étapes ou les résultats.</p></div><button class="btn-primary" data-kind="Bug">＋ Décrire un bug</button></div><div class="info-panel"><span class="panel-icon red">⚑</span><div><h3>Un bug utile est reproductible et vérifiable</h3><p>Décrivez le contexte, le résultat observé et le résultat attendu. Les informations absentes restent explicitement à compléter.</p><button class="btn-secondary" data-kind="Bug">Ouvrir le générateur</button></div></div><div id="bugsList" class="saved-list"></div></section>
+    <section class="view" id="view-acceptance"><div class="page-heading"><div><div class="eyebrow">VALIDATION FONCTIONNELLE</div><h1>Critères d'acceptation</h1><p>Préparez des conditions simples et vérifiables.</p></div><button class="btn-primary" data-kind="Critères d'acceptation">＋ Générer des critères</button></div><div class="info-panel"><span class="panel-icon blue">☷</span><div><h3>Privilégiez des critères observables</h3><p>Chaque critère doit pouvoir être vérifié. Les règles métier inconnues sont présentées comme des questions à clarifier.</p><button class="btn-secondary" data-kind="Critères d'acceptation">Ouvrir le générateur</button></div></div><div id="acceptanceList" class="saved-list"></div></section>
+    <section class="view" id="view-tests"><div class="page-heading"><div><div class="eyebrow">RECETTE FONCTIONNELLE</div><h1>Cas de test</h1><p>Préparez les étapes et les résultats attendus avant l'exécution.</p></div><button class="btn-primary" data-kind="Cas de test">＋ Préparer une recette</button></div><div class="info-panel"><span class="panel-icon green">✓</span><div><h3>Une proposition n'est pas un test exécuté</h3><p>PO Copilot prépare une base de travail. Le résultat obtenu et le statut doivent être renseignés lors de la recette réelle.</p><button class="btn-secondary" data-kind="Cas de test">Ouvrir le générateur</button></div></div><div id="testsList" class="saved-list"></div></section>
+    <section class="view" id="view-templates"><div class="page-heading"><div><div class="eyebrow">ACCÉLÉREZ VOTRE RÉDACTION</div><h1>Mes modèles</h1><p>Choisissez un format pour préremplir le générateur.</p></div></div><div class="template-grid">
+      <button class="template-card" data-template="User story"><span class="template-symbol purple">◈</span><strong>User story standard</strong><p>Contexte, besoin, valeur et critères d'acceptation.</p><span class="template-link">Utiliser ce modèle →</span></button>
+      <button class="template-card" data-template="Bug"><span class="template-symbol red">⚑</span><strong>Bug fonctionnel</strong><p>Anomalie, résultat observé, résultat attendu et éléments à compléter.</p><span class="template-link">Utiliser ce modèle →</span></button>
+      <button class="template-card" data-template="Demande d'évolution"><span class="template-symbol blue">↗</span><strong>Demande d'évolution</strong><p>Objectif, comportement attendu et critères de validation.</p><span class="template-link">Utiliser ce modèle →</span></button>
+      <button class="template-card" data-template="Cas de test"><span class="template-symbol green">✓</span><strong>Recette fonctionnelle</strong><p>Objectif, prérequis, étapes et statut de recette.</p><span class="template-link">Utiliser ce modèle →</span></button>
+      <button class="template-card" data-template="Tâche technique"><span class="template-symbol amber">⌘</span><strong>Ticket technique</strong><p>Objectif technique, travaux et risques à confirmer.</p><span class="template-link">Utiliser ce modèle →</span></button>
+    </div></section>
+    <section class="view" id="view-history"><div class="page-heading"><div><div class="eyebrow">VOS CRÉATIONS</div><h1>Historique</h1><p>Retrouvez les livrables enregistrés dans ce navigateur.</p></div><button class="btn-secondary danger-button" id="clearHistory">Effacer l'historique</button></div><div class="demo-notice"><span class="notice-icon">i</span><span>L'historique est stocké localement sur cet appareil. Il n'est pas synchronisé entre appareils et ne constitue pas une sauvegarde sécurisée.</span></div><div id="historyList" class="history-list"></div></section>
+    <section class="view" id="view-pricing"><div class="page-heading"><div><div class="eyebrow">CHOISISSEZ VOTRE FORMULE</div><h1>Des outils pour mieux livrer</h1><p>Les tarifs et fonctionnalités ci-dessous sont des propositions de démonstration.</p></div></div><div class="pricing-grid">
+      <article class="price-card"><span class="price-label">POUR DÉCOUVRIR</span><h2>Gratuit</h2><p class="price"><strong>0 €</strong><span>/ mois</span></p><p>Pour tester les formats et la génération locale.</p><ul><li>Générateur de tickets</li><li>Modèles standards</li><li>Historique local</li></ul><button class="btn-secondary full-width" data-view="generator">Essayer gratuitement</button></article>
+      <article class="price-card featured"><span class="popular-tag">FORMULE ENVISAGÉE</span><span class="price-label">POUR LES INDÉPENDANTS</span><h2>Pro</h2><p class="price"><strong>15 €</strong><span>/ mois</span></p><p>Pour un usage professionnel régulier.</p><ul><li>Générations plus nombreuses</li><li>Modèles avancés</li><li>Formats personnalisables</li><li>Préparation de recettes</li></ul><button class="btn-primary full-width" data-plan="Pro">Bientôt disponible</button></article>
+      <article class="price-card"><span class="price-label">POUR LES ÉQUIPES</span><h2>Équipe</h2><p class="price"><strong>39 €</strong><span>/ mois</span></p><p>Pour harmoniser les pratiques de rédaction.</p><ul><li>Modèles partagés à venir</li><li>Standards communs à venir</li><li>Fonctionnalités collaboratives à venir</li></ul><button class="btn-secondary full-width" data-plan="Équipe">Être informé du lancement</button></article>
+    </div><p class="pricing-note">Aucun paiement n'est configuré dans ce prototype. Aucun abonnement ne sera souscrit en cliquant sur ces boutons.</p></section>
+    <section class="view" id="view-settings"><div class="page-heading"><div><div class="eyebrow">PERSONNALISATION</div><h1>Paramètres</h1><p>Gérez les préférences de cette version locale.</p></div></div><div class="settings-card"><div class="setting-row"><div><strong>Niveau de détail par défaut</strong><p>Choisissez le niveau proposé à l'ouverture du générateur.</p></div><select id="defaultDetail"><option>Synthétique</option><option selected>Standard</option><option>Détaillé</option></select></div><div class="setting-row"><div><strong>Stockage des données</strong><p>Les livrables sont conservés dans le stockage local de votre navigateur. Le texte du formulaire est envoyé au serveur local pour être traité par l’API IA lors de la génération.</p></div><span class="settings-badge">Local</span></div><div class="setting-row"><div><strong>Version de l'application</strong><p>Prototype PO Copilot v0.3 — génération via API IA, serveur local.</p></div><span class="settings-badge">v0.3</span></div><div class="setting-row"><div><strong>Contact</strong><p>Adresse fictive de démonstration : contact@example.com</p></div></div><div class="setting-row"><div><strong>Gestion des données</strong><p>Vous pouvez supprimer l'historique enregistré sur ce navigateur.</p></div><button class="btn-secondary danger-button" id="settingsClearHistory">Effacer l'historique</button></div></div></section>
+    <footer class="app-footer"><span>PO Copilot <span class="footer-sep">·</span> Prototype v0.3</span><span>Génération par IA, à relire avant utilisation.</span></footer>
+  </main>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Fermer">×</button><div class="modal-symbol">i</div><h2 id="modalTitle">À propos de PO Copilot</h2><p id="modalText">Cette version est un prototype local. Elle ne se connecte pas à un modèle d'IA, à Jira ni à un service de paiement.</p><button class="btn-primary" id="modalOk">Compris</button></div></div><script>(() => {
+  "use strict";
+  const $ = (selector, root=document) => root.querySelector(selector);
+  const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
+  const STORAGE_KEY = "poCopilotHistoryV1";
+  let history = readHistory();
+  let currentResult = null;
+  let toastTimer;
+
+  function readHistory() {
+    try { const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]"); return Array.isArray(data) ? data : []; }
+    catch (e) { return []; }
+  }
+  function persistHistory() {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(history.slice(0,100))); }
+    catch (e) { showToast("Le navigateur n'a pas pu enregistrer l'historique."); }
+  }
+  function escapeText(value) { return String(value ?? "").replace(/\r\n/g,"\n").trim(); }
+  function titleCaseKind(kind) { return kind || "Livrable"; }
+  function makeTitle(kind, userTitle, description) {
+    if (userTitle.trim()) return userTitle.trim();
+    const clean = description.trim().replace(/\s+/g," ");
+    return (kind === "Bug" ? "Bug — " : kind === "User story" ? "User story — " : "") + (clean.length > 62 ? clean.slice(0,59).trim()+"…" : clean);
+  }
+  function missing(value, fallback="À préciser") { return value && value.trim() ? value.trim() : fallback; }
+  function makeCriteria(description, expected, constraints, detailed) {
+    // Génération locale : ne transforme pas une hypothèse en règle métier.
+    const criteria = [];
+    if (expected.trim()) {
+      const expectedLines = expected.split(/\n|[;]+/).map(x=>x.trim()).filter(Boolean);
+      expectedLines.forEach(line => criteria.push("Le résultat attendu est vérifiable : " + line));
+    } else {
+      criteria.push("Le résultat attendu exact reste à confirmer avec le demandeur.");
+    }
+    if (constraints.trim()) {
+      const constraintLines = constraints.split(/\n|[;]+/).map(x=>x.trim()).filter(Boolean);
+      constraintLines.forEach(line => criteria.push("La règle ou contrainte suivante est respectée : " + line));
+    }
+    if (detailed) criteria.push("Les cas limites pertinents sont identifiés et validés avec le demandeur.");
+    if (criteria.length === 0) criteria.push("Les conditions de validation restent à définir avec le demandeur.");
+    return criteria.map((x,i)=>`${i+1}. ${x}`).join("\n");
+  }
+  function buildOutput(data) {
+    const {kind,title,description,context,expected,constraints,detail,format} = data;
+    const detailed = detail === "Détaillé";
+    const short = detail === "Synthétique";
+    const criteria = makeCriteria(description,expected,constraints,detailed);
+    const lines = [];
+    const add = (heading, body) => { lines.push(heading); lines.push(body || "À préciser"); lines.push(""); };
+    if (format === "Jira") lines.push(`[${kind.toUpperCase()}] ${title}`, "=".repeat(Math.min(56,Math.max(12,title.length+kind.length+3))),"");
+    else lines.push(title,"");
+    if (kind === "User story") {
+      add("Contexte",missing(context, "Contexte fonctionnel à préciser."));
+      add("En tant que...", "Rôle utilisateur à préciser.");
+      add("Je veux...", description);
+      add("Afin de...", expected.trim() ? expected.trim() : "Valeur ou bénéfice utilisateur à préciser.");
+      add("Critères d'acceptation", criteria);
+      add("Points à clarifier", [
+        !context.trim() ? "• Préciser le contexte fonctionnel." : "",
+        !expected.trim() ? "• Confirmer la valeur attendue pour l'utilisateur." : "",
+        !constraints.trim() ? "• Confirmer les règles métier et contraintes applicables." : ""
+      ].filter(Boolean).join("\n") || "Aucun point supplémentaire identifié à partir des informations fournies.");
+    } else if (kind === "Bug") {
+      add("Contexte",missing(context,"Contexte fonctionnel à préciser."));
+      add("Anomalie constatée",description);
+      if (!short) add("Étapes de reproduction", "À compléter uniquement si elles sont connues : préciser les actions effectuées avant l'apparition de l'anomalie.");
+      add("Résultat observé", "À décrire précisément à partir du comportement réellement constaté. Ne pas déduire ce résultat de la seule description du besoin.");
+      add("Résultat attendu",missing(expected,"À confirmer avec le demandeur."));
+      if (constraints.trim()) add("Contraintes ou règles métier",constraints);
+      add("Informations complémentaires à recueillir",[
+        "• Étapes exactes pour reproduire l'anomalie, si disponibles.",
+        "• Environnement et version concernés, si pertinents.",
+        "• Capture d'écran ou message d'erreur, si disponible."
+      ].join("\n"));
+    } else if (kind === "Demande d'évolution") {
+      add("Contexte",missing(context,"Contexte fonctionnel à préciser."));
+      add("Objectif fonctionnel",description);
+      add("Comportement attendu",missing(expected,"À préciser avec le demandeur."));
+      if (constraints.trim()) add("Contraintes ou règles métier",constraints);
+      add("Critères d'acceptation",criteria);
+      add("Points à clarifier",!expected.trim() || !constraints.trim() ? [
+        !expected.trim() ? "• Décrire le comportement final souhaité." : "",
+        !constraints.trim() ? "• Identifier les règles métier, droits et cas particuliers." : ""
+      ].filter(Boolean).join("\n") : "Aucun point supplémentaire identifié à partir des informations fournies.");
+    } else if (kind === "Tâche technique") {
+      add("Contexte",missing(context,"Contexte technique ou fonctionnel à préciser."));
+      add("Objectif technique",description);
+      add("Travaux attendus",expected.trim() ? expected.trim() : "Décomposer les travaux après analyse technique.");
+      if (constraints.trim()) add("Contraintes ou règles métier",constraints);
+      add("Critères de validation",criteria);
+      add("Dépendances ou risques à confirmer","• Dépendances techniques à identifier par l'équipe.\n• Impacts et risques à évaluer avant réalisation.");
+    } else if (kind === "Cas de test") {
+      add("Objectif du test",description);
+      add("Prérequis",missing(context,"À préciser avant exécution."));
+      add("Étapes du test",detailed ? "1. Préparer les prérequis.\n2. Exécuter le scénario correspondant au besoin décrit.\n3. Comparer le comportement obtenu au résultat attendu." : "1. Préparer les prérequis.\n2. Exécuter le scénario décrit.\n3. Vérifier le résultat attendu.");
+      add("Résultat attendu",missing(expected,"À préciser avant l'exécution du test."));
+      add("Résultat obtenu","À compléter lors de l'exécution réelle.");
+      add("Statut","À renseigner lors de la recette : Non exécuté / Réussi / Échoué.");
+      if (constraints.trim()) add("Contraintes ou règles métier",constraints);
+    } else {
+      add("Contexte",missing(context,"Contexte fonctionnel à préciser."));
+      add("Besoin à couvrir",description);
+      add("Critères d'acceptation",criteria);
+      add("Points à clarifier",!expected.trim() || !constraints.trim() ? [
+        !expected.trim() ? "• Préciser le résultat attendu." : "",
+        !constraints.trim() ? "• Confirmer les règles métier applicables." : ""
+      ].filter(Boolean).join("\n") : "Aucun point supplémentaire identifié à partir des informations fournies.");
+    }
+    if (detailed) add("Informations source",`Description initiale : ${description}\nContexte : ${missing(context,"Non fourni")}\nRésultat attendu fourni : ${missing(expected,"Non fourni")}`);
+    return lines.join("\n").replace(/\n{3,}/g,"\n\n").trim();
+  }
+  function collectForm() {
+    return {kind:$("#kind").value,title:escapeText($("#ticketTitle").value),description:escapeText($("#description").value),context:escapeText($("#context").value),expected:escapeText($("#expected").value),constraints:escapeText($("#constraints").value),detail:$("#detail").value,format:$("#format").value};
+  }
+  function showToast(message) {
+    const toast=$("#toast"); toast.textContent=message; toast.classList.add("show");
+    clearTimeout(toastTimer); toastTimer=setTimeout(()=>toast.classList.remove("show"),2800);
+  }
+  function setView(name) {
+    const valid = ["dashboard","generator","stories","bugs","acceptance","tests","templates","history","pricing","settings"];
+    if (!valid.includes(name)) name="dashboard";
+    $$(".view").forEach(v=>v.classList.toggle("active",v.id===`view-${name}`));
+    $$(".nav-item").forEach(b=>b.classList.toggle("active",b.dataset.view===name));
+    const label = ({dashboard:"Tableau de bord",generator:"Générateur de tickets",stories:"User stories",bugs:"Bugs",acceptance:"Critères d'acceptation",tests:"Cas de test",templates:"Mes modèles",history:"Historique",pricing:"Offres",settings:"Paramètres"})[name];
+    $("#breadcrumbCurrent").textContent=label;
+    $("#sidebar").classList.remove("open");
+    if(name==="history") renderHistory();
+    if(["stories","bugs","acceptance","tests"].includes(name)) renderFiltered(name);
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+  function navigateFromButton(button) {
+    if(button.dataset.kind) { $("#kind").value=button.dataset.kind; setView("generator"); }
+    else if(button.dataset.template) { $("#kind").value=button.dataset.template; setView("generator"); showToast("Modèle « "+button.dataset.template+" » sélectionné."); }
+    else if(button.dataset.view) setView(button.dataset.view);
+  }
+  function saveCurrent(data, content) {
+    const record={id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),kind:data.kind,title:makeTitle(data.kind,data.title,data.description),createdAt:new Date().toISOString(),content,description:data.description};
+    history.unshift(record); history=history.slice(0,100); persistHistory(); currentResult=record;
+    renderDashboard(); renderHistory();
+  }
+  async function generate(data, isRegeneration=false) {
+    const error = $("#formError");
+    if(data.description.length < 12) { error.textContent="Décrivez votre besoin en au moins 12 caractères pour générer un livrable utile."; error.style.display="block"; $("#description").focus(); return; }
+    error.style.display="none";
+    const button=$("#generateButton");
+    const oldButton=button.innerHTML;
+    button.disabled=true; button.innerHTML='<span class="spinner"></span> Génération IA…';
+    $("#resultStatus").textContent="L’IA rédige…";
+    try {
+      const response = await fetch('/api/generate', {
+        method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(data)
+      });
+      const payload = await response.json().catch(()=>({}));
+      if(!response.ok) throw new Error(payload.error || `Erreur du serveur (${response.status}).`);
+      const content = String(payload.content || '').trim();
+      if(!content) throw new Error("L’IA n’a pas renvoyé de ticket. Réessaie.");
+      $("#resultText").value=content; $("#resultEmpty").classList.add("hidden"); $("#resultContent").classList.remove("hidden");
+      $("#resultKind").textContent=data.kind; $("#resultStatus").textContent="Généré par IA — à relire"; $("#resultStatus").style.background="#e7f7f0"; $("#resultStatus").style.color="#267d5e";
+      if(!isRegeneration) saveCurrent(data,content); else {
+        if(!currentResult) saveCurrent(data,content);
+        else {
+          currentResult.content=content; currentResult.title=makeTitle(data.kind,data.title,data.description); currentResult.kind=data.kind; currentResult.description=data.description;
+          if(history.some(h=>h.id===currentResult.id)) history=history.map(h=>h.id===currentResult.id?currentResult:h);
+          else { currentResult.id=Date.now().toString(36)+Math.random().toString(36).slice(2,7); currentResult.createdAt=new Date().toISOString(); history.unshift(currentResult); history=history.slice(0,100); }
+          persistHistory(); renderDashboard(); renderHistory();
+        }
+      }
+      showToast(isRegeneration?"Ticket régénéré par l’IA.":"Ticket généré par l’IA et enregistré localement.");
+    } catch (err) {
+      $("#resultStatus").textContent="Échec de la génération";
+      error.textContent=err.message || "Une erreur est survenue pendant la génération. Vérifie que le serveur local est démarré.";
+      error.style.display="block";
+      showToast("La génération IA a échoué. Consulte le message affiché dans le formulaire.");
+    } finally {
+      button.disabled=false; button.innerHTML=oldButton;
+    }
+  }
+  function openRecord(record) {
+    if(!record) return;
+    currentResult=record;
+    $("#kind").value=["User story","Bug","Demande d'évolution","Tâche technique","Cas de test","Critères d'acceptation"].includes(record.kind)?record.kind:"User story";
+    $("#ticketTitle").value=record.title||"";
+    $("#description").value=record.description||record.content||"";
+    $("#context").value=""; $("#expected").value=""; $("#constraints").value="";
+    $("#resultText").value=record.content||""; $("#resultKind").textContent=record.kind||"Livrable";
+    $("#resultEmpty").classList.add("hidden"); $("#resultContent").classList.remove("hidden"); $("#resultStatus").textContent="Historique";
+    setView("generator");
+  }
+  function emptyList(message){return `<div class="list-empty">${message}</div>`;}
+  function renderHistory() {
+    const container=$("#historyList");
+    if(!history.length){container.innerHTML=emptyList("Aucun livrable enregistré pour le moment.");return;}
+    container.innerHTML=history.map(h=>`<article class="history-item"><span class="history-type">${escapeHTML(h.kind)}</span><div class="history-main"><strong>${escapeHTML(h.title)}</strong><small>${new Date(h.createdAt).toLocaleString("fr-FR",{dateStyle:"medium",timeStyle:"short"})}</small></div><span class="history-date">${h.content.length} caractères</span><button class="btn-secondary" data-open-record="${h.id}">Ouvrir</button><button class="icon-action" data-delete-record="${h.id}" title="Supprimer" aria-label="Supprimer">×</button></article>`).join("");
+  }
+  function escapeHTML(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+  function renderDashboard(){
+    $("#statTickets").textContent=history.length;
+    $("#statStories").textContent=history.filter(h=>h.kind==="User story").length;
+    $("#statTests").textContent=history.filter(h=>h.kind==="Cas de test").length;
+    $("#statTime").innerHTML=`${history.length*8} <small>min</small>`;
+    const container=$("#dashboardActivity");
+    if(!history.length){container.innerHTML='<div class="empty-state compact"><div class="empty-symbol">◷</div><strong>Aucune activité pour le moment</strong><p>Votre premier livrable apparaîtra ici.</p><button class="btn-secondary" data-view="generator">Créer mon premier ticket</button></div>';return;}
+    container.innerHTML=history.slice(0,4).map(h=>`<article class="history-item"><span class="history-type">${escapeHTML(h.kind)}</span><div class="history-main"><strong>${escapeHTML(h.title)}</strong><small>${new Date(h.createdAt).toLocaleString("fr-FR",{dateStyle:"medium",timeStyle:"short"})}</small></div><button class="btn-secondary" data-open-record="${h.id}">Ouvrir</button></article>`).join("");
+  }
+  function renderFiltered(view){
+    const map={stories:["storiesList","User story"],bugs:["bugsList","Bug"],acceptance:["acceptanceList","Critères d'acceptation"],tests:["testsList","Cas de test"]};
+    const [id,kind]=map[view], target=$("#"+id), items=history.filter(h=>h.kind===kind);
+    if(!items.length){target.innerHTML=emptyList("Aucun élément enregistré dans cette catégorie. Créez un livrable pour le retrouver ici.");return;}
+    target.innerHTML=items.map(h=>`<article class="saved-item"><div class="saved-item-main"><strong>${escapeHTML(h.title)}</strong><small>${new Date(h.createdAt).toLocaleDateString("fr-FR")} · ${h.content.length} caractères</small></div><button class="btn-secondary" data-open-record="${h.id}">Ouvrir</button></article>`).join("");
+  }
+  function clearAllHistory(){
+    if(!history.length){showToast("L'historique est déjà vide.");return;}
+    if(!window.confirm("Supprimer tous les livrables de l'historique local ? Cette action est irréversible.")) return;
+    history=[];persistHistory();renderDashboard();renderHistory();["stories","bugs","acceptance","tests"].forEach(renderFiltered);showToast("Historique supprimé.");
+  }
+  async function copyResult(){
+    const value=$("#resultText").value;if(!value.trim()){showToast("Aucun contenu à copier.");return;}
+    try { if(navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(value); else { const temp=document.createElement("textarea");temp.value=value;temp.style.position="fixed";temp.style.opacity="0";document.body.appendChild(temp);temp.select();const ok=document.execCommand("copy");temp.remove();if(!ok)throw new Error("copy"); } showToast("Livrable copié dans le presse-papiers."); }
+    catch(e){showToast("Copie impossible dans ce navigateur. Sélectionnez le texte pour le copier.");}
+  }
+  function downloadResult(){
+    const value=$("#resultText").value;if(!value.trim()){showToast("Aucun contenu à télécharger.");return;}
+    const blob=new Blob([value],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;a.download=(currentResult?.title||"po-copilot-ticket").replace(/[^a-z0-9-_]+/gi,"-").slice(0,70)+".txt";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);showToast("Téléchargement préparé.");
+  }
+  function showModal(title,text){$("#modalTitle").textContent=title;$("#modalText").textContent=text;$("#modal").classList.remove("hidden");}
+  document.addEventListener("click",e=>{
+    const viewBtn=e.target.closest("[data-view], [data-kind], [data-template]");
+    if(viewBtn){e.preventDefault();navigateFromButton(viewBtn);return;}
+    const open=e.target.closest("[data-open-record]");if(open){openRecord(history.find(h=>h.id===open.dataset.openRecord));return;}
+    const del=e.target.closest("[data-delete-record]");if(del){history=history.filter(h=>h.id!==del.dataset.deleteRecord);persistHistory();renderDashboard();renderHistory();["stories","bugs","acceptance","tests"].forEach(renderFiltered);showToast("Livrable supprimé.");return;}
+    const plan=e.target.closest("[data-plan]");if(plan){showModal("Offre "+plan.dataset.plan,"Les abonnements et paiements ne sont pas encore configurés. Cette version est un prototype local : aucun paiement ne sera effectué.");return;}
+  });
+  $$(".nav-item").forEach(btn=>btn.addEventListener("click",()=>setView(btn.dataset.view)));
+  $("#ticketForm").addEventListener("submit",e=>{e.preventDefault();generate(collectForm());});
+  $("#clearForm").addEventListener("click",()=>{
+    $("#ticketForm").reset();$("#detail").value=$("#defaultDetail").value||"Standard";$("#formError").style.display="none";
+    $("#resultEmpty").classList.remove("hidden");$("#resultContent").classList.add("hidden");$("#resultStatus").textContent="En attente";currentResult=null;showToast("Formulaire effacé.");
+  });
+  $("#resultText").addEventListener("input",()=>{
+    if(!currentResult) return;
+    currentResult.content=$("#resultText").value;
+    history=history.map(item=>item.id===currentResult.id?currentResult:item);
+    persistHistory();
+    renderDashboard();
+  });
+  $("#copyResult").addEventListener("click",copyResult);
+  $("#downloadResult").addEventListener("click",downloadResult);
+  $("#editResult").addEventListener("click",()=>{$("#resultText").focus();$("#resultText").select();showToast("Vous pouvez modifier le texte directement dans la zone de résultat.");});
+  $("#regenerate").addEventListener("click",()=>generate(collectForm(),true));
+  $("#makeTests").addEventListener("click",()=>{
+    const content=$("#resultText").value;
+    if(!content.trim()){showToast("Générez d'abord un ticket.");return;}
+    const sourceTitle=makeTitle($("#kind").value,$("#ticketTitle").value,$("#description").value);
+    $("#kind").value="Cas de test";$("#ticketTitle").value="Recette — "+sourceTitle;
+    $("#description").value="Préparer des cas de test pour vérifier le besoin décrit dans le ticket suivant :\n"+content;
+    $("#context").value="Le ticket source doit être relu et les prérequis confirmés avant exécution.";
+    $("#expected").value="À extraire et confirmer à partir des critères d'acceptation du ticket source.";
+    setView("generator");showToast("Le formulaire de cas de test est prérempli. Vérifiez les informations avant de générer.");
+  });
+  $("#clearHistory").addEventListener("click",clearAllHistory);
+  $("#settingsClearHistory").addEventListener("click",clearAllHistory);
+  $("#defaultDetail").addEventListener("change",e=>{localStorage.setItem("poCopilotDefaultDetail",e.target.value);$("#detail").value=e.target.value;showToast("Préférence enregistrée sur ce navigateur.");});
+  $("#aboutButton").addEventListener("click",()=>showModal("À propos de PO Copilot","PO Copilot v0.2 est un prototype local amélioré. La génération repose sur des règles JavaScript et non sur un modèle d'IA. Il n'y a pas de connexion à Jira, de compte utilisateur sécurisé ni de paiement réel."));
+  $("#modalClose").addEventListener("click",()=>$("#modal").classList.add("hidden"));
+  $("#modalOk").addEventListener("click",()=>$("#modal").classList.add("hidden"));
+  $("#modal").addEventListener("click",e=>{if(e.target===$("#modal"))$("#modal").classList.add("hidden");});
+  $("#mobileMenu").addEventListener("click",()=>$("#sidebar").classList.toggle("open"));
+  document.addEventListener("keydown",e=>{if(e.key==="Escape")$("#modal").classList.add("hidden");});
+  try { const detail=localStorage.getItem("poCopilotDefaultDetail");if(detail&&["Synthétique","Standard","Détaillé"].includes(detail)){$("#detail").value=detail;$("#defaultDetail").value=detail;} }catch(e){}
+  // Spinner utilisé pendant l’appel au service IA.
+  const style=document.createElement("style");style.textContent=".spinner{display:inline-block;width:12px;height:12px;border:2px solid #ffffff66;border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}button:disabled{opacity:.7;cursor:wait}";document.head.appendChild(style);
+  renderDashboard();renderHistory();
+})();</script></body></html>
