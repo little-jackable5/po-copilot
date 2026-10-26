@@ -462,4 +462,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Redirection propre des boutons/liens d'offres vers la page/vue des offres
+  const offerLinks = document.querySelectorAll('[href="#pricing"], [data-view="pricing"], .offer-link, .btn-upgrade');
+  offerLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (typeof setView === "function") {
+        setView("pricing");
+      } else if (typeof renderFilteredView === "function") {
+        renderFilteredView("pricing");
+      }
+    });
+  });
+});
+</script>
 </body></html>
