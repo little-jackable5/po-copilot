@@ -388,4 +388,46 @@
   // Spinner utilisé pendant l’appel au service IA.
   const style=document.createElement("style");style.textContent=".spinner{display:inline-block;width:12px;height:12px;border:2px solid #ffffff66;border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}button:disabled{opacity:.7;cursor:wait}";document.head.appendChild(style);
   renderDashboard();renderHistory();
-})();</script></body></html>
+})();</script>
+<script>
+// Code injecté pour rendre les pages de livrables dynamiques
+function renderDynamicDeliverables(view) {
+  const typesMap = {
+    "user-stories": "User story",
+    "bugs": "Bug",
+    "criteres": "Critères d’acceptation",
+    "cas-de-test": "Cas de test"
+  };
+  const targetType = typesMap[view];
+  if (!targetType) return;
+  
+  const container = document.querySelector("#" + view + " .deliverables-list, #" + view + " .list-container, #" + view + " .card-body");
+  if (!container) return;
+
+  const filtered = (window.historyList || window.history || []).filter(item => item.kind === targetType);
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="empty-state" style="padding: 2rem; text-align: center;"><p>Aucun livrable de type <strong>' + targetType + '</strong> pour le moment.</p></div>';
+  } else {
+    container.innerHTML = filtered.map(item => 
+      '<div class="card history-card" style="margin-bottom: 1rem; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">' +
+        '<div>' +
+          '<span class="badge" style="background:#e0e7ff; color:#3730a3; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600;">' + item.kind + '</span>' +
+          '<h4 style="margin: 0.5rem 0 0.25rem 0; font-size: 1rem;">' + (item.title || "Sans titre") + '</h4>' +
+          '<small style="color:#64748b;">Créé le ' + new Date(item.createdAt).toLocaleDateString("fr-FR") + '</small>' +
+        '</div>' +
+        '<button onclick="openResult(\'' + item.id + '\')" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;">Ouvrir</button>' +
+      '</div>'
+    ).join("");
+  }
+}
+
+// Hook sur le changement de vue existant
+const originalSwitch = window.switchView || window.setView;
+if (typeof originalSwitch === "function") {
+  window.setView = function(view) {
+    originalSwitch(view);
+    renderDynamicDeliverables(view);
+  };
+}
+</script>
+</body></html>
