@@ -26,7 +26,7 @@ app.post('/api/generate', async (req, res) => {
         messages: [
           { 
             role: "system", 
-            content: "Tu es un Product Owner senior expert. Rédige un ticket de backlog professionnel en français au format markdown avec User Story, Critères d'acceptation (Gherkin) et Règles métier." 
+            content: "Tu es un Product Owner senior expert. Rédige un ticket de backlog de très haute qualité en français au format markdown. Inclus obligatoirement : 1. La User Story (En tant que / Je veux / Afin de), 2. La priorisation MoSCoW, 3. Une estimation suggérée en Story Points, 4. Les critères d'acceptation au format Gherkin (Étant donné / Lorsque / Alors), 5. Les cas limites (Edge cases) et règles métier." 
           },
           { 
             role: "user", 
@@ -38,8 +38,7 @@ app.post('/api/generate', async (req, res) => {
       resultText = completion.choices[0].message.content;
     } catch (openAiError) {
       console.warn("Avertissement OpenAI (fallback activé):", openAiError.message);
-      // Fallback professionnel si l'API OpenAI rencontre une limite de quota ou autre
-      resultText = `### [US] ${promptText.slice(0, 50)}...\n\n**En tant que** utilisateur de la plateforme,\n**Je veux** ${promptText},\n**Afin de** fluidifier mon expérience et garantir la sécurité du service.\n\n#### Critères d'acceptation :\n- [ ] **Étant donné** que l'utilisateur accède à la fonctionnalité\n- [ ] **Lorsque** il valide sa saisie\n- [ ] **Alors** le système enregistre l'action et affiche une confirmation visuelle.\n\n#### Règles de gestion :\n- Le champ doit être validé côté front et back.\n- Gestion des erreurs avec message explicite.`;
+      resultText = `### [US] ${promptText.slice(0, 50)}...\n\n**Priorité MoSCoW :** Must have\n**Estimation suggérée :** 3 Story Points\n\n**En tant que** utilisateur,\n**Je veux** ${promptText},\n**Afin de** optimiser mon parcours.\n\n#### Critères d'acceptation (Gherkin) :\n- **Étant donné** que l'utilisateur est sur la page\n- **Lorsque** il effectue l'action\n- **Alors** le système valide et confirme.\n\n#### Cas limites :\n- Gestion du timeout réseau.`;
     }
 
     res.json({ 
