@@ -19,6 +19,27 @@
   margin-bottom: 5px !important;
 }
 </style>
+
+<style>
+/* Conteneur des cartes de tarification */
+.pricing-grid, #view-pricing .pricing-grid, .pricing-container {
+  display: flex !important;
+  align-items: stretch !important;
+}
+
+/* Forcer chaque carte à prendre toute la hauteur et aligner les éléments en colonne */
+.pricing-card, .plan-card, [id*="pricing"] .card {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  height: 100% !important;
+}
+
+/* Pousser systématiquement le bouton tout en bas de la carte */
+.pricing-card button, .plan-card button, [id*="pricing"] button {
+  margin-top: auto !important;
+}
+</style>
 </head><body><div class="app-shell">
   <aside class="sidebar" id="sidebar">
     <div class="brand"><div class="brand-mark">P</div><div><strong>PO Copilot</strong><small>PRODUCT WORKSPACE</small></div></div>
