@@ -378,7 +378,7 @@
   $("#clearHistory").addEventListener("click",clearAllHistory);
   $("#settingsClearHistory").addEventListener("click",clearAllHistory);
   $("#defaultDetail").addEventListener("change",e=>{localStorage.setItem("poCopilotDefaultDetail",e.target.value);$("#detail").value=e.target.value;showToast("Préférence enregistrée sur ce navigateur.");});
-  $("#aboutButton").addEventListener("click",()=>showModal("À propos de PO Copilot","PO Copilot v0.2 est un prototype local amélioré. La génération repose sur des règles JavaScript et non sur un modèle d'IA. Il n'y a pas de connexion à Jira, de compte utilisateur sécurisé ni de paiement réel."));
+  $("#aboutButton").addEventListener("click",()=>showModal("À propos de PO Copilot","PO Copilot v0.3 est un assistant agile connecté à l’API OpenAI (gpt-4o-mini) hébergé sur Render pour générer des livrables structurés en temps réel."));
   $("#modalClose").addEventListener("click",()=>$("#modal").classList.add("hidden"));
   $("#modalOk").addEventListener("click",()=>$("#modal").classList.add("hidden"));
   $("#modal").addEventListener("click",e=>{if(e.target===$("#modal"))$("#modal").classList.add("hidden");});
