@@ -82,8 +82,8 @@ Format Jira sélectionné : ${format}`;
   }
 });
 
-app.listen(PORT, '127.0.0.1', (, "0.0.0.0") => {
-  console.log(`PO Copilot v0.3 disponible sur http://127.0.0.1:${PORT}`);
+app.listen(PORT, '0.0.0.0', (, "0.0.0.0") => {
+  console.log(`PO Copilot v0.3 disponible sur http://0.0.0.0:${PORT}`);
   if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'collez_votre_cle_api_ici') {
     console.log('Étape restante : configurer OPENAI_API_KEY dans le fichier .env.');
   }
