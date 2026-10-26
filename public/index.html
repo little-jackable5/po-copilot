@@ -430,4 +430,36 @@ if (typeof originalSwitch === "function") {
   };
 }
 </script>
+
+<script>
+// Code injecté pour rendre les abonnements interactifs
+function selectPlan(planName, price) {
+  localStorage.setItem("po_copilot_plan", planName);
+  
+  // Mettre à jour l'affichage du plan dans l'interface si l'élément existe
+  const badgeElement = document.querySelector(".workspace-footer, .user-badge, footer, .sidebar-footer");
+  
+  // Afficher une modale de succès
+  if (typeof showModal === "function") {
+    showModal("Félicitations !", "Vous avez souscrit avec succès à l'offre " + planName + " (" + price + "). Votre espace est désormais mis à niveau !");
+  } else {
+    alert("Souscription réussie à l'offre " + planName + " !");
+  }
+}
+
+// Intercepter les boutons des offres pour les rendre cliquables
+document.addEventListener("DOMContentLoaded", () => {
+  const pricingButtons = document.querySelectorAll(".pricing-card button, .plan-card button, [data-plan]");
+  pricingButtons.forEach(btn => {
+    const card = btn.closest(".card, .pricing-card, div");
+    const titleEl = card ? card.querySelector("h3, h4, .plan-title") : null;
+    const planName = titleEl ? titleEl.textContent.trim() : "Pro";
+    const priceEl = card ? card.querySelector(".price, [data-price]") : null;
+    const price = priceEl ? priceEl.textContent.trim() : "15€/mois";
+    
+    btn.textContent = "Choisir cette offre";
+    btn.onclick = () => selectPlan(planName, price);
+  });
+});
+</script>
 </body></html>
