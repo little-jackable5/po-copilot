@@ -4,7 +4,7 @@ const path = require('path');
 const OpenAI = require('openai');
 
 const app = express();
-const PORT = Number(process.env.PORT || 3000);
+const PORT = Number(process.env.PORT || process.env.PORT || process.env.PORT || 3000);
 app.disable('x-powered-by');
 app.use(express.json({ limit: '40kb' }));
 app.use(express.static(path.join(__dirname, 'public')));
