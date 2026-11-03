@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PO Copilot — Prototype v0.3</title>
+
+
+
+
+
+
+
+
+<style>
+  /* 1. Assurer une grille propre et étirée pour les cartes */
+  .pricing-grid, #view-pricing > div:nth-child(2) {
+    display: flex !important;
+    align-items: stretch !important;
+    gap: 24px !important;
+  }
+  
+  /* 2. Chaque carte prend toute la hauteur, avec un espacement interne équilibré */
+  .pricing-card, [class*="pricing"] > div, .card {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    position: relative !important;
+    padding-top: 32px !important; /* Espace confortable en haut */
+  }
+
+  /* 3. Correction du badge "Formule envisagée" pour éviter la superposition */
+  .pricing-card [class*="badge"], .card span[class*="badge"], .pricing-card > div > span, div[style*="absolute"] {
+    position: absolute !important;
+    top: 16px !important;
+    right: 16px !important;
+    z-index: 10 !important;
+  }
+
+  /* 4. Aligner uniformément tous les boutons tout en bas */
+  .pricing-card button, .pricing-card .btn, [class*="pricing"] button {
+    margin-top: auto !important;
+    width: 100% !important;
+  }
+</style>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  /* Alignement et structure propre des cartes de prix */
+  #view-pricing .pricing-grid, .pricing-grid {
+    display: flex !important;
+    align-items: stretch !important;
+    gap: 24px !important;
+  }
+  #view-pricing .pricing-card, .pricing-card {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    position: relative !important;
+    padding-top: 36px !important;
+    height: 100% !important;
+  }
+  #view-pricing .pricing-card button, .pricing-card button {
+    margin-top: auto !important;
+    width: 100% !important;
+  }
+</style>
+
+
+<style>
+  /* Alignement et structure propre des cartes de prix */
+  #view-pricing .pricing-grid, .pricing-grid {
+    display: flex !important;
+    align-items: stretch !important;
+    gap: 24px !important;
+  }
+  #view-pricing .pricing-card, .pricing-card {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    position: relative !important;
+    padding-top: 36px !important;
+    height: 100% !important;
+  }
+  #view-pricing .pricing-card button, .pricing-card button {
+    margin-top: auto !important;
+    width: 100% !important;
+  }
+</style>
+
+</head><body><div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><div class="brand-mark">P</div><div><strong>PO Copilot</strong><small>PRODUCT WORKSPACE</small></div></div>
+    <div class="workspace-label">ESPACE DE TRAVAIL</div>
+    <nav class="nav-menu" aria-label="Navigation principale">
+      <button class="nav-item active" data-view="dashboard"><span class="nav-icon">▦</span>Tableau de bord</button>
+      <button class="nav-item" data-view="generator"><span class="nav-icon">✦</span>Générateur de tickets</button>
+      <button class="nav-item" data-view="stories"><span class="nav-icon">▤</span>User stories</button>
+      <button class="nav-item" data-view="bugs"><span class="nav-icon">⚑</span>Bugs</button>
+      <button class="nav-item" data-view="acceptance"><span class="nav-icon">☷</span>Critères d'acceptation</button>
+      <button class="nav-item" data-view="tests"><span class="nav-icon">✓</span>Cas de test</button>
+      <button class="nav-item" data-view="templates"><span class="nav-icon">▧</span>Mes modèles</button>
+      <button class="nav-item" data-view="history"><span class="nav-icon">◷</span>Historique</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="plan-card"><div class="plan-row"><span class="plan-dot"></span><strong>Offre Découverte</strong></div><p>Explorez les outils et préparez vos livrables.</p><button class="btn-plan" data-view="pricing">Découvrir les offres <span>→</span></button></div>
+      <div class="profile"><div class="avatar">PO</div><div><strong>Product Owner</strong><small>Compte de démonstration</small></div><span class="profile-more">•••</span></div>
+    </div>
+  </aside>
+
+  <main class="main-area">
+    <header class="topbar">
+      <button class="mobile-menu" id="mobileMenu" aria-label="Ouvrir le menu">☰</button>
+      <div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumbCurrent">Tableau de bord</strong></div>
+      <div class="topbar-right"><span class="status-pill"><span></span> Prototype local</span><button class="help-button" title="À propos de PO Copilot" id="aboutButton">?</button></div>
+    </header>
+
+    <section class="view active" id="view-dashboard">
+      <div class="page-heading dashboard-heading"><div><div class="eyebrow">LUNDI, PRODUCTIVITÉ EN ACTION</div><h1>Bonjour, prêt à gagner du temps ?</h1><p>Transformez vos demandes en livrables prêts pour votre équipe.</p></div><button class="btn-primary" data-view="generator"><span>＋</span> Nouveau ticket</button></div>
+      <div class="demo-notice"><span class="notice-icon">i</span><span>Vous utilisez une <strong>version de démonstration</strong>. Les statistiques initiales sont fictives. Les tickets sont générés par IA via le serveur Cloud et conservés dans ce navigateur.</span></div>
+      <div class="stats-grid">
+        <article class="stat-card"><div class="stat-top"><span>Tickets générés</span><span class="stat-icon purple">▤</span></div><div class="stat-value" id="statTickets">0</div><div class="stat-foot">Depuis ce navigateur</div></article>
+        <article class="stat-card"><div class="stat-top"><span>User stories créées</span><span class="stat-icon blue">◈</span></div><div class="stat-value" id="statStories">0</div><div class="stat-foot">Enregistrées localement</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Cas de test préparés</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="statTests">0</div><div class="stat-foot">Propositions générées</div></article>
+        <article class="stat-card"><div class="stat-top"><span>Temps estimé économisé</span><span class="stat-icon amber">◷</span></div><div class="stat-value" id="statTime">0 <small>min</small></div><div class="stat-foot">Estimation indicative</div></article>
+      </div>
+      <div class="section-heading"><div><h2>Démarrer rapidement</h2><p>Choisissez le livrable dont vous avez besoin.</p></div><button class="text-button" data-view="generator">Ouvrir le générateur <span>→</span></button></div>
+      <div class="quick-grid">
+        <button class="quick-card" data-kind="User story"><span class="quick-icon purple">◈</span><span class="quick-title">Créer une user story</span><span class="quick-desc">Structurez le besoin et définissez sa valeur.</span><span class="quick-arrow">↗</span></button>
+        <button class="quick-card" data-kind="Bug"><span class="quick-icon red">⚑</span><span class="quick-title">Rédiger un bug</span><span class="quick-desc">Formalisez l'anomalie et le comportement attendu.</span><span class="quick-arrow">↗</span></button>
+        <button class="quick-card" data-kind="Critères d'acceptation"><span class="quick-icon blue">☷</span><span class="quick-title">Définir les critères</span><span class="quick-desc">Rendez les conditions de validation vérifiables.</span><span class="quick-arrow">↗</span></button>
+        <button class="quick-card" data-kind="Cas de test"><span class="quick-icon green">✓</span><span class="quick-title">Préparer une recette</span><span class="quick-desc">Organisez les étapes et résultats attendus.</span><span class="quick-arrow">↗</span></button>
+      </div>
+      <div class="section-heading recent-heading"><div><h2>Activité récente</h2><p>Vos derniers livrables créés dans ce navigateur.</p></div><button class="text-button" data-view="history">Voir l'historique <span>→</span></button></div>
+      <div class="activity-card" id="dashboardActivity"><div class="empty-state compact"><div class="empty-symbol">◷</div><strong>Aucune activité pour le moment</strong><p>Votre premier livrable apparaîtra ici.</p><button class="btn-secondary" data-view="generator">Créer mon premier ticket</button></div></div>
+    </section>
+
+    <section class="view" id="view-generator">
+      <div class="page-heading"><div><div class="eyebrow">VOTRE ASSISTANT DE RÉDACTION</div><h1>Générateur de tickets</h1><p>Décrivez votre besoin. PO Copilot le structure pour votre équipe.</p></div><span class="prototype-tag">Génération par IA</span></div>
+      <div class="generator-layout">
+        <div class="form-card">
+          <div class="card-heading"><div><span class="step-label">ÉTAPE 1</span><h2>Décrivez votre besoin</h2></div><span class="required-label">* Obligatoire</span></div>
+          <form id="ticketForm">
+            <label for="kind">Type de livrable <span>*</span></label>
+            <select id="kind" required>
+              <option>User story</option><option>Bug</option><option>Demande d'évolution</option><option>Tâche technique</option><option>Cas de test</option><option>Critères d'acceptation</option>
+            </select>
+            <label for="ticketTitle">Titre du ticket <small>Facultatif</small></label>
+            <input id="ticketTitle" type="text" placeholder="Ex. Ajouter une scrollbar dans la timeline">
+            <label for="description">Description du besoin <span>*</span></label>
+            <textarea id="description" required minlength="12" rows="6" placeholder="Décris ton besoin, colle un email client ou explique le problème rencontré..."></textarea>
+            <div class="field-hint">Conseil : indiquez ce qui se passe aujourd'hui et ce que vous souhaitez obtenir.</div>
+            <div class="form-two">
+              <div><label for="context">Contexte fonctionnel <small>Facultatif</small></label><textarea id="context" rows="3" placeholder="Écran, utilisateur, situation…"></textarea></div>
+              <div><label for="expected">Résultat attendu <small>Facultatif</small></label><textarea id="expected" rows="3" placeholder="Comportement souhaité…"></textarea></div>
+            </div>
+            <label for="constraints">Contraintes ou règles métier <small>Facultatif</small></label>
+            <textarea id="constraints" rows="2" placeholder="Règles connues, droits, limites…"></textarea>
+            <div class="form-two settings-row">
+              <div><label for="detail">Niveau de détail</label><select id="detail"><option value="Synthétique">Synthétique</option><option value="Standard" selected>Standard</option><option value="Détaillé">Détaillé</option></select></div>
+              <div><label for="format">Format de sortie</label><select id="format"><option value="Jira">Format Jira</option><option value="Texte simple">Texte simple</option></select></div>
+            </div>
+            <div class="form-error" id="formError" role="alert"></div>
+            <div class="form-actions"><button type="button" class="btn-secondary" id="clearForm">Effacer</button><button type="submit" class="btn-primary" id="generateButton"><span>✦</span> Générer mon ticket</button></div>
+          </form>
+        </div>
+        <div class="result-card">
+          <div class="result-header"><div><span class="step-label">ÉTAPE 2</span><h2>Votre livrable</h2></div><span class="result-status" id="resultStatus">En attente</span></div>
+          <div id="resultEmpty" class="empty-state result-empty"><div class="empty-illustration"><span>✦</span></div><strong>Votre ticket apparaîtra ici</strong><p>Renseignez le besoin à gauche, puis lancez la génération pour obtenir une structure claire et prête à relire.</p><div class="empty-checks"><span>✓ Structure adaptée au livrable</span><span>✓ Points manquants signalés</span><span>✓ Résultat modifiable et copiable</span></div></div>
+          <div id="resultContent" class="result-content hidden">
+            <div class="result-toolbar"><span id="resultKind" class="kind-chip">User story</span><div class="result-actions"><button class="icon-action" id="copyResult" title="Copier" aria-label="Copier">▣</button><button class="icon-action" id="downloadResult" title="Télécharger en TXT" aria-label="Télécharger">↓</button></div></div>
+            <textarea id="resultText" aria-label="Contenu du livrable" spellcheck="true"></textarea>
+            <div class="result-bottom-actions"><button class="btn-secondary" id="editResult">Modifier le texte</button><button class="btn-secondary" id="regenerate">Régénérer</button><button class="btn-primary" id="makeTests">Créer les cas de test <span>→</span></button></div>
+            <div class="result-footnote">Relisez et validez le contenu avant de le transmettre à votre équipe.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" id="view-stories"><div class="page-heading"><div><div class="eyebrow">BACKLOG PRODUIT</div><h1>User stories</h1><p>Transformez les besoins utilisateurs en stories structurées.</p></div><button class="btn-primary" data-kind="User story">＋ Créer une story</button></div><div class="info-panel"><span class="panel-icon purple">◈</span><div><h3>Une bonne user story doit exprimer une valeur</h3><p>Utilisez le format « En tant que… Je veux… Afin de… ». Si le rôle, le besoin ou la valeur ne sont pas précisés, PO Copilot les signalera plutôt que de les inventer.</p><button class="btn-secondary" data-kind="User story">Ouvrir le générateur</button></div></div><div id="storiesList" class="saved-list"></div></section>
+    <section class="view" id="view-bugs"><div class="page-heading"><div><div class="eyebrow">QUALITÉ PRODUIT</div><h1>Bugs</h1><p>Documentez les anomalies sans inventer les étapes ou les résultats.</p></div><button class="btn-primary" data-kind="Bug">＋ Décrire un bug</button></div><div class="info-panel"><span class="panel-icon red">⚑</span><div><h3>Un bug utile est reproductible et vérifiable</h3><p>Décrivez le contexte, le résultat observé et le résultat attendu. Les informations absentes restent explicitement à compléter.</p><button class="btn-secondary" data-kind="Bug">Ouvrir le générateur</button></div></div><div id="bugsList" class="saved-list"></div></section>
+    <section class="view" id="view-acceptance"><div class="page-heading"><div><div class="eyebrow">VALIDATION FONCTIONNELLE</div><h1>Critères d'acceptation</h1><p>Préparez des conditions simples et vérifiables.</p></div><button class="btn-primary" data-kind="Critères d'acceptation">＋ Générer des critères</button></div><div class="info-panel"><span class="panel-icon blue">☷</span><div><h3>Privilégiez des critères observables</h3><p>Chaque critère doit pouvoir être vérifié. Les règles métier inconnues sont présentées comme des questions à clarifier.</p><button class="btn-secondary" data-kind="Critères d'acceptation">Ouvrir le générateur</button></div></div><div id="acceptanceList" class="saved-list"></div></section>
+    <section class="view" id="view-tests"><div class="page-heading"><div><div class="eyebrow">RECETTE FONCTIONNELLE</div><h1>Cas de test</h1><p>Préparez les étapes et les résultats attendus avant l'exécution.</p></div><button class="btn-primary" data-kind="Cas de test">＋ Préparer une recette</button></div><div class="info-panel"><span class="panel-icon green">✓</span><div><h3>Une proposition n'est pas un test exécuté</h3><p>PO Copilot prépare une base de travail. Le résultat obtenu et le statut doivent être renseignés lors de la recette réelle.</p><button class="btn-secondary" data-kind="Cas de test">Ouvrir le générateur</button></div></div><div id="testsList" class="saved-list"></div></section>
+    <section class="view" id="view-templates"><div class="page-heading"><div><div class="eyebrow">ACCÉLÉREZ VOTRE RÉDACTION</div><h1>Mes modèles</h1><p>Choisissez un format pour préremplir le générateur.</p></div></div><div class="template-grid">
+      <button class="template-card" data-template="User story"><span class="template-symbol purple">◈</span><strong>User story standard</strong><p>Contexte, besoin, valeur et critères d'acceptation.</p><span class="template-link">Utiliser ce modèle →</span></button>
+      <button class="template-card" data-template="Bug"><span class="template-symbol red">⚑</span><strong>Bug fonctionnel</strong><p>Anomalie, résultat observé, résultat attendu et éléments à compléter.</p><span class="template-link">Utiliser ce modèle →</span></button>
+      <button class="template-card" data-template="Demande d'évolution"><span class="template-symbol blue">↗</span><strong>Demande d'évolution</strong><p>Objectif, comportement attendu et critères de validation.</p><span class="template-link">Utiliser ce modèle →</span></button>
+      <button class="template-card" data-template="Cas de test"><span class="template-symbol green">✓</span><strong>Recette fonctionnelle</strong><p>Objectif, prérequis, étapes et statut de recette.</p><span class="template-link">Utiliser ce modèle →</span></button>
+      <button class="template-card" data-template="Tâche technique"><span class="template-symbol amber">⌘</span><strong>Ticket technique</strong><p>Objectif technique, travaux et risques à confirmer.</p><span class="template-link">Utiliser ce modèle →</span></button>
+    </div></section>
+    <section class="view" id="view-history"><div class="page-heading"><div><div class="eyebrow">VOS CRÉATIONS</div><h1>Historique</h1><p>Retrouvez les livrables enregistrés dans ce navigateur.</p></div><button class="btn-secondary danger-button" id="clearHistory">Effacer l'historique</button></div><div class="demo-notice"><span class="notice-icon">i</span><span>L'historique est stocké localement sur cet appareil. Il n'est pas synchronisé entre appareils et ne constitue pas une sauvegarde sécurisée.</span></div><div id="historyList" class="history-list"></div></section>
+    <section class="view" id="view-pricing"><div class="page-heading"><div><div class="eyebrow">CHOISISSEZ VOTRE FORMULE</div><h1>Des outils pour mieux livrer</h1><p>Les tarifs et fonctionnalités ci-dessous sont des propositions de démonstration.</p></div></div><div class="pricing-grid">
+      <article class="price-card"><span class="price-label">POUR DÉCOUVRIR</span><h2>Gratuit</h2><p class="price"><strong>0 €</strong><span>/ mois</span></p><p>Pour tester les formats et la génération locale.</p><ul><li>Générateur de tickets</li><li>Modèles standards</li><li>Historique local</li></ul><button class="btn-secondary full-width" data-view="generator">Essayer gratuitement</button></article>
+      <article class="price-card featured"><span class="popular-tag">FORMULE ENVISAGÉE</span><span class="price-label">POUR LES INDÉPENDANTS</span><h2>Pro</h2><p class="price"><strong>15 €</strong><span>/ mois</span></p><p>Pour un usage professionnel régulier.</p><ul><li>Générations plus nombreuses</li><li>Modèles avancés</li><li>Formats personnalisables</li><li>Préparation de recettes</li></ul><button class="btn-primary full-width" data-plan="Pro">Bientôt disponible</button></article>
+      <article class="price-card"><span class="price-label">POUR LES ÉQUIPES</span><h2>Équipe</h2><p class="price"><strong>39 €</strong><span>/ mois</span></p><p>Pour harmoniser les pratiques de rédaction.</p><ul><li>Modèles partagés à venir</li><li>Standards communs à venir</li><li>Fonctionnalités collaboratives à venir</li></ul><button class="btn-secondary full-width" data-plan="Équipe">Être informé du lancement</button></article>
+    </div><p class="pricing-note">Aucun paiement n'est configuré dans ce prototype. Aucun abonnement ne sera souscrit en cliquant sur ces boutons.</p></section>
+    <section class="view" id="view-settings"><div class="page-heading"><div><div class="eyebrow">PERSONNALISATION</div><h1>Paramètres</h1><p>Gérez les préférences de cette version locale.</p></div></div><div class="settings-card"><div class="setting-row"><div><strong>Niveau de détail par défaut</strong><p>Choisissez le niveau proposé à l'ouverture du générateur.</p></div><select id="defaultDetail"><option>Synthétique</option><option selected>Standard</option><option>Détaillé</option></select></div><div class="setting-row"><div><strong>Stockage des données</strong><p>Les livrables sont conservés dans le stockage local de votre navigateur. Le texte du formulaire est envoyé au serveur Cloud pour être traité par l’API IA lors de la génération.</p></div><span class="settings-badge">Local</span></div><div class="setting-row"><div><strong>Version de l'application</strong><p>Prototype PO Copilot v0.3 — génération via API IA, serveur Cloud.</p></div><span class="settings-badge">v0.3</span></div><div class="setting-row"><div><strong>Contact</strong><p>Adresse fictive de démonstration : contact@example.com</p></div></div><div class="setting-row"><div><strong>Gestion des données</strong><p>Vous pouvez supprimer l'historique enregistré sur ce navigateur.</p></div><button class="btn-secondary danger-button" id="settingsClearHistory">Effacer l'historique</button></div></div></section>
+    <footer class="app-footer"><span>PO Copilot <span class="footer-sep">·</span> Prototype v0.3</span><span>Génération par IA, à relire avant utilisation.</span></footer>
+  </main>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><button class="modal-close" id="modalClose" aria-label="Fermer">×</button><div class="modal-symbol">i</div><h2 id="modalTitle">À propos de PO Copilot</h2><p id="modalText">Cette version est un prototype local. Elle ne se connecte pas à un modèle d'IA, à Jira ni à un service de paiement.</p><button class="btn-primary" id="modalOk">Compris</button></div></div>
+
+
+
+
+
+<script>
+function setView(viewName) {
+  // 1. Masquer toutes les vues/sections
+  const views = document.querySelectorAll('.view, section[id^="view-"]');
+  views.forEach(v => {
+    v.style.display = 'none';
+    v.classList.remove('active');
+  });
+
+  // 2. Afficher la vue cible
+  const targetView = document.getElementById('view-' + viewName) || document.querySelector('.' + viewName);
+  if (targetView) {
+    targetView.style.display = 'block';
+    targetView.classList.add('active');
+  }
+
+  // 3. Mettre à jour l'état actif dans le menu latéral si besoin
+  const navItems = document.querySelectorAll('aside a, .sidebar-nav a');
+  navItems.forEach(item => {
+    item.classList.remove('active');
+    if (item.getAttribute('data-view') === viewName || item.href.includes(viewName)) {
+      item.classList.add('active');
+    }
+  });
+}
+
+// Intercepter tous les éléments avec data-view au chargement
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll('[data-view]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      const view = el.getAttribute('data-view');
+      if (view) setView(view);
+    });
+  });
+});
+</script>
+</body></html>
+
