@@ -41,6 +41,28 @@
 </style>
 
 <script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  /* Alignement et structure propre des cartes de prix */
+  #view-pricing .pricing-grid, .pricing-grid {
+    display: flex !important;
+    align-items: stretch !important;
+    gap: 24px !important;
+  }
+  #view-pricing .pricing-card, .pricing-card {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    position: relative !important;
+    padding-top: 36px !important;
+    height: 100% !important;
+  }
+  #view-pricing .pricing-card button, .pricing-card button {
+    margin-top: auto !important;
+    width: 100% !important;
+  }
+</style>
+
 </head><body><div class="app-shell">
   <aside class="sidebar" id="sidebar">
     <div class="brand"><div class="brand-mark">P</div><div><strong>PO Copilot</strong><small>PRODUCT WORKSPACE</small></div></div>
